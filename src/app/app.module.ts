@@ -7,6 +7,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+//mock api
+import { HttpModule }    from '@angular/http';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
+import { WebService } from "./WebService";
+import { School } from "./Classes/school";
+
 @NgModule({
   declarations: [
     MyApp,
@@ -14,7 +21,9 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -24,7 +33,8 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    WebService
   ]
 })
 export class AppModule {}
