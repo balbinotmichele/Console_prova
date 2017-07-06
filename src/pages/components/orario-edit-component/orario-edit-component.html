@@ -1,0 +1,17 @@
+<ion-card *ngIf="fascia">
+    <ion-card-content>
+        <ion-list>
+            <ion-item>
+                <ion-input [(ngModel)]="fascia.name"></ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-item>
+            <ion-label>Da</ion-label>
+            <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="fascia.start"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>A</ion-label>
+            <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="fascia.end"></ion-datetime>
+        </ion-item>
+    </ion-card-content>
+</ion-card>

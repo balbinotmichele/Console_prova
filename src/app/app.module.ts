@@ -13,11 +13,14 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import { WebService } from "./WebService";
 import { School } from "./Classes/school";
+import { OrarioEditComponent } from "../pages/components/orario-edit-component/orario-edit.component";
+
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    OrarioEditComponent
   ],
   imports: [
     BrowserModule,

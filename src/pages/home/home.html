@@ -8,7 +8,7 @@
 
 <ion-content padding>
   <div padding>
-    <ion-segment [(ngModel)]="settings"> 
+    <ion-segment [(ngModel)]="settings">
       <ion-segment-button value="profilo">
         Profilo
       </ion-segment-button>
@@ -18,27 +18,27 @@
       <ion-segment-button value="sezioni">
         Sezioni
       </ion-segment-button>
-      <ion-segment-button value="contatti">
-        Contatti
-      </ion-segment-button>
       <ion-segment-button value="bus">
         Bus
       </ion-segment-button>
       <ion-segment-button value="insegnanti">
         Insegnanti
       </ion-segment-button>
+      <ion-segment-button value="assenze">
+        Assenze
+      </ion-segment-button>
     </ion-segment>
   </div>
 
   <div [ngSwitch]="settings">
     <div *ngSwitchCase="'profilo'">
-      <ion-searchbar (ionInput)="searchItems($event)"></ion-searchbar>
+      <!--<ion-searchbar (ionInput)="searchItems($event)"></ion-searchbar>
           <ion-list inset >
-      <button ion-item *ngFor="let item of kids"> {{ item.name }} {{ item.surname }}
+      <button ion-item *ngFor="let item of school.kids"> {{ item.name }} {{item.surname}}
           <ion-icon name="arrow-forward" item-end></ion-icon>
-          </button> 
-      </ion-list>
-      <!--<ion-grid inset>
+          </button>
+      </ion-list>-->
+      <ion-grid inset>
         <ion-row>
           <ion-col col-12>
             <ion-card>
@@ -55,28 +55,59 @@
           <ion-col col-sm-6>
             <ion-card>
               <ion-card-header>
+                Indirizzo
+              </ion-card-header>
+              <ion-card-content>
+                <p>{{school.address}}</p>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col col-sm-6>
+            <ion-card>
+              <ion-card-header>
                 Contatti
               </ion-card-header>
               <ion-card-content>
-                <p>Telefono: <a id="schoolTel" href="tel:">0000000000</a></p>
-                <p>Email: <a id="schoolEmail" href="mailto:scuola@scuola.it">scuola@scuola.it</a></p>
+                <p>Telefono: <a href="tel: {{school.telephone}}">{{school.telephone}}</a></p>
+                <p>Email: <a href="{{school.email}}">{{school.email}}</a></p>
               </ion-card-content>
             </ion-card>
           </ion-col>
         </ion-row>
-      </ion-grid>-->
+      </ion-grid>
+      <!--<ion-fab bottom right>
+        <button ion-fab color="primary"><ion-icon name="md-create"></ion-icon></button>
+      </ion-fab>-->
     </div>
-
+    <!--<ion-fab bottom right>
+        <button ion-fab color="primary"><ion-icon name="md-create"></ion-icon></button>
+      </ion-fab>-->
+    <div *ngSwitchCase="'sezioni'">
+      <ion-grid inset>
+        <ion-col col-4>
+          <ion-card>
+            <ion-list inset >
+              <button ion-item *ngFor="let item of school.sections"> {{ item }}<ion-icon name="arrow-forward" item-end></ion-icon></button>
+            </ion-list>
+          </ion-card>
+        </ion-col>
+      </ion-grid>
+    </div>
+<!--
     <ion-list *ngSwitchCase="'sezioni'">
+
         <ion-list-header>
           Sezione 1
         </ion-list-header>
-        <button ion-item *ngFor="let item of kids"> {{ item.name }} {{ item.surname }} 
+        <ng-container *ngFor="let kid of school.kids">
+<button ion-item *ngIf="kid.section == item"> {{ item.name }} {{ item.surname }}
           <ion-icon name="arrow-forward" item-end></ion-icon>
-          </button> 
-    </ion-list>
+          </button>
+        </ng-container>
 
-    <ion-list *ngSwitchCase="'orari'">
+    </ion-list>-->
+
+    <!--<ion-list *ngSwitchCase="'orari'">
         <ul>
           <li>Da: 6:00</li>
           <li>A: 18:00</li>
@@ -84,30 +115,86 @@
         <ion-fab right bottom>
           <button ion-fab color="dark"><ion-icon name="create"></ion-icon></button>
         </ion-fab>
-    </ion-list>
-
-    <div *ngSwitchCase="'contatti'">
-        <ul>
-          <li>Telefono: <a href="tel: 0000000000">0000 000000</a></li>
-          <li>Email: <a href="mailto:asd@mail.com">asd@mail.com</a></li>
-        </ul>
-        <ion-fab right bottom>
-          <button ion-fab color="dark"><ion-icon name="create"></ion-icon></button>
-        </ion-fab>
+    </ion-list>-->
+    <div id="orari" *ngSwitchCase="'orari'">
+      <ion-grid inset *ngFor="let item of school.servizi; let i=index">
+        <ion-row>
+          <ion-col col-8>
+            <ion-card>
+              <ion-card-header>
+                {{item.servizio}}
+              </ion-card-header>
+              <ion-card-content>
+                  <ion-grid inset>
+                    <ion-row>
+                      <ion-col col-4 *ngFor="let fascia of item.fasce">
+                        <ion-card (click)="onSelectFascia(fascia)">
+                          <ion-card-header>
+                            {{fascia.name}}
+                          </ion-card-header>
+                          <ion-card-content>
+                            Da: {{fascia.start}} <br />
+                            A: {{fascia.end}}
+                          </ion-card-content>
+                        </ion-card>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ng-container *ngIf="i===0">
+            <ion-col col-4>
+              <orario-edit [fascia]="selectedFascia"></orario-edit>
+            </ion-col>
+          </ng-container>
+        </ion-row>
+      </ion-grid>
     </div>
 
-    <ion-list inset *ngSwitchCase="'bus'">
-        <button icon-right ion-item *ngFor="let item of buses">
-        {{ item }}
-        <ion-icon name="arrow-forward" item-end></ion-icon>
-        </button>
-    </ion-list>
+    <div *ngSwitchCase="'bus'">
+      <ion-grid inset>
+        <ion-col col-4>
+          <ion-card>
+            <ion-list inset >
+              <button ion-item *ngFor="let item of school.buses">
+               {{ item.id }} ({{item.capolinea}})
+               <ion-icon name="arrow-forward" item-end></ion-icon>
+              </button>
+            </ion-list>
+          </ion-card>
+        </ion-col>
+      </ion-grid>
+    </div>
 
-    <ion-list inset *ngSwitchCase="'insegnanti'">
-      <button icon-right ion-item *ngFor="let item of teachers">
-        {{ item }}
-        <ion-icon name="arrow-forward" item-end></ion-icon>
-        </button> 
-    </ion-list>
+    <div *ngSwitchCase="'insegnanti'">
+      <ion-grid inset>
+        <ion-col col-4>
+          <ion-card>
+            <ion-list inset >
+              <button ion-item *ngFor="let item of school.teachers">
+               {{ item.name }} {{item.surname}}
+               <ion-icon name="arrow-forward" item-end></ion-icon>
+              </button>
+            </ion-list>
+          </ion-card>
+        </ion-col>
+      </ion-grid>
+  </div>
+
+    <div *ngSwitchCase="'assenze'">
+      <ion-grid inset>
+        <ion-col col-4>
+          <ion-card>
+            <ion-list inset >
+              <button ion-item *ngFor="let item of school.assenze">
+               {{ item }}
+               <ion-icon name="arrow-forward" item-end></ion-icon>
+              </button>
+            </ion-list>
+          </ion-card>
+        </ion-col>
+      </ion-grid>
+    </div>
   </div>
 </ion-content>

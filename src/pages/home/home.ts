@@ -1,44 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import 'rxjs/add/operator/toPromise';
 import { WebService } from "../../app/WebService";
 import { School } from "../../app/Classes/school";
+import { Kid } from "../../app/Classes/kid";
+import { Time } from "../../app/Classes/time";
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 
-export class HomePage {
-  searchQuery: string = '';
-  teachers: string[];
-  buses : string[];
-  school:School;
+export class HomePage implements OnInit {
+  searchQuery : string = '';
 
-  initializeItems() {
-    this.webService.getSchool().then(item => console.log(item));
-    
-    this.teachers = [
-      "Antonello Fausti",
-      "Luigi Festi",
-      "Emanuela Ferri"
-    ]
-    
-    this.buses = [
-      "bus1",
-      "bus2",
-      "bus3"
-    ]
-  }
+  school : School;
   
+  selectedFascia : Time;
 
-  constructor(public navCtrl: NavController, private webService : WebService) {
-    this.initializeItems();
+  constructor(public navCtrl: NavController, private webService : WebService) {}
+
+  getKids() : void {
+    this.webService.getData().then(item => {console.log(item); this.school = item});
   }
 
   searchItems(ev: any) {
-    this.initializeItems();
     let val = ev.target.value;
     if (val && val.trim() != '') {
       this.school.kids = this.school.kids.filter((item) => {
@@ -47,11 +34,12 @@ export class HomePage {
       })
     }
   }
-}
 
-window.onclick = () => {
-    // document.getElementById("schoolTel").setAttribute("href", this.school.telephone)
-    // document.getElementById("schoolTel").innerHTML = this.school.telephone;
-    // document.getElementById("schoolEmail").setAttribute("href", this.school.email)
-    // document.getElementById("schoolEmail").innerHTML = this.school.email;
+  ngOnInit(): void {
+    this.getKids()
+  }
+
+  onSelectFascia(fascia:Time) {
+    this.selectedFascia = fascia;
+  }
 }
