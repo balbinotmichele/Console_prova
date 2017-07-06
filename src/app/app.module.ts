@@ -14,13 +14,15 @@ import { InMemoryDataService }  from './in-memory-data.service';
 import { WebService } from "./WebService";
 import { School } from "./Classes/school";
 import { OrarioEditComponent } from "../pages/components/orario-edit-component/orario-edit.component";
+import { SezioneEditComponent } from "../pages/components/sezione-edit-component/sezione-edit.component";
 
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    OrarioEditComponent
+    OrarioEditComponent,
+    SezioneEditComponent
   ],
   imports: [
     BrowserModule,
