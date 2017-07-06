@@ -18,6 +18,9 @@ export class HomePage implements OnInit {
   school : School;
   
   selectedFascia : Time;
+  selectedService : string;
+
+  selectedName : string;
 
   constructor(public navCtrl: NavController, private webService : WebService) {}
 
@@ -39,7 +42,12 @@ export class HomePage implements OnInit {
     this.getKids()
   }
 
-  onSelectFascia(fascia:Time) {
+  onSelectFascia(fascia:Time, service:string) {
     this.selectedFascia = fascia;
+    this.selectedService = service;
+  }
+
+  onSelectSezione(name:string) {
+    this.selectedName = name;
   }
 }
