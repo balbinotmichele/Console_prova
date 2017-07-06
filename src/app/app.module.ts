@@ -16,7 +16,7 @@ import { School } from "./Classes/school";
 import { OrarioEditComponent } from "../pages/components/orario-edit-component/orario-edit.component";
 import { SezioneEditComponent } from "../pages/components/sezione-edit-component/sezione-edit.component";
 
-
+//a
 @NgModule({
   declarations: [
     MyApp,
