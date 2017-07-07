@@ -1,0 +1,43 @@
+<ion-card *ngIf="teacher">
+    <ion-card-content>
+        <ion-list>
+            <ion-item>
+                <ion-label floating>Id</ion-label>
+                <ion-input [(ngModel)]="teacher.id" ng-init="teacher.id = ''"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Nome</ion-label>
+                <ion-input [(ngModel)]="teacher.name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Cognome</ion-label>
+                <ion-input [(ngModel)]="teacher.surname"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Cellulare</ion-label>
+                <ion-input [(ngModel)]="teacher.cellphone"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Telefono</ion-label>
+                <ion-input [(ngModel)]="teacher.telephone"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Email</ion-label>
+                <ion-input [(ngModel)]="teacher.email"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Sezione</ion-label>
+                <ion-select [(ngModel)]="teacher.section">
+                    <ion-option *ngFor="let item of sections" value="{{item}}">{{item}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Pin</ion-label>
+                <ion-input [(ngModel)]="teacher.pin"></ion-input>
+            </ion-item>
+            <ion-item>
+                <button (click)="save()">save</button>
+            </ion-item>
+        </ion-list>
+    </ion-card-content>
+</ion-card>

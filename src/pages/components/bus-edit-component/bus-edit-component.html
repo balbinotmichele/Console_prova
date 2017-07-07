@@ -1,0 +1,14 @@
+<ion-card *ngIf="bus">
+    <ion-card-content>
+        <ion-list>
+            <ion-item>
+                <ion-label floating>ID</ion-label>
+                <ion-input [(ngModel)]="bus.id"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Capolinea</ion-label>
+                <ion-input [(ngModel)]="bus.capolinea"></ion-input>
+            </ion-item>
+        </ion-list>
+    </ion-card-content>
+</ion-card>

@@ -1,10 +1,16 @@
 <ion-card *ngIf="fascia">
     <ion-card-header>
-        <ion-card-title>{{servizio}}</ion-card-title>
+        <ion-list>
+            <ion-item>
+                <ion-label floating>Servizio</ion-label>
+                <ion-input [(ngModel)]="servizio.servizio"></ion-input>
+            </ion-item>
+        </ion-list>
     </ion-card-header>
     <ion-card-content>
         <ion-list>
             <ion-item>
+                <ion-label floating>Fascia</ion-label>
                 <ion-input [(ngModel)]="fascia.name"></ion-input>
             </ion-item>
             <ion-item>

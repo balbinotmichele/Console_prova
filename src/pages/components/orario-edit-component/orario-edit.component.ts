@@ -1,3 +1,4 @@
+import { Service } from './../../../app/Classes/service';
 import { Component, Input } from '@angular/core';
 import { Time } from "../../../app/Classes/time";
 
@@ -8,5 +9,5 @@ import { Time } from "../../../app/Classes/time";
 
 export class OrarioEditComponent {
   @Input() fascia: Time;
-  @Input() servizio : string;
+  @Input() servizio : Service;
 }

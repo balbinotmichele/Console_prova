@@ -1,3 +1,4 @@
+import { Teacher } from './Classes/teacher';
 import { Kid } from "./Classes/kid";
 
 import { Injectable }    from '@angular/core';
@@ -9,6 +10,7 @@ import { School } from "./Classes/school";
 @Injectable()
 export class WebService {
   private schoolUrl = 'api/school'
+  private teacherUrl = 'api/school/teacher'
 
   constructor(private http : Http) {}
 
@@ -23,7 +25,10 @@ export class WebService {
         .then(response => response.json().data as Kid)
         .catch(this.handleError);
     }
- 
+    
+  addTeacher(teacher: Teacher) {
+    // return this.http.post(this.teacherUrl, JSON.stringify({teac})) //da finire
+  }
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);

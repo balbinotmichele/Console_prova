@@ -15,6 +15,8 @@ import { WebService } from "./WebService";
 import { School } from "./Classes/school";
 import { OrarioEditComponent } from "../pages/components/orario-edit-component/orario-edit.component";
 import { SezioneEditComponent } from "../pages/components/sezione-edit-component/sezione-edit.component";
+import { BusEditComponent } from "../pages/components/bus-edit-component/bus-edit.component";
+import { InsegnanteEditComponent } from "../pages/components/insegnanti-edit-component/insegnanti-edit.component";
 
 //a
 @NgModule({
@@ -22,7 +24,9 @@ import { SezioneEditComponent } from "../pages/components/sezione-edit-component
     MyApp,
     HomePage,
     OrarioEditComponent,
-    SezioneEditComponent
+    SezioneEditComponent,
+    BusEditComponent,
+    InsegnanteEditComponent
   ],
   imports: [
     BrowserModule,

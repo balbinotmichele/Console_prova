@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Bus } from './../../../app/Classes/bus';
+import { Component, Input, OnInit } from '@angular/core';
 import { Time } from "../../../app/Classes/time";
 
 @Component({
@@ -7,5 +8,6 @@ import { Time } from "../../../app/Classes/time";
 })
 
 export class SezioneEditComponent {
-  @Input() name: string;
+  @Input() names : string[];
+  @Input() index: number;
 }
