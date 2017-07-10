@@ -42,16 +42,20 @@ export class WebService {
     return Promise.reject(error.message || error);
   }
 
-  addTeacher(school: School, item : Teacher) : Promise<Teacher> {
-    return this.http
-
-    .post(
-      this.schoolUrl, 
-    JSON.stringify(item), 
-    { headers: this.headers })
-
-    .toPromise()
-    .then(res => res.json().data as Teacher)
-    .catch(this.handleError);
+  addTeacher(schoolId: string, item : Teacher) : Promise<School> {
+    //this.http.get(this.schoolUrl).toPromise().then(x=>console.log(x.json().data));
+    // return this.http
+    // .post(this.schoolUrl, JSON.stringify(item), { headers: this.headers })
+    // .toPromise()
+    // .then(res => res.json().data as Teacher)
+    // .catch(this.handleError);
+    var sch;
+    const url = `${this.schoolUrl}/${schoolId}`
+    // this.http.get(url).toPromise().then(school => sch = school.json().data);
+    return this.getSchool(schoolId).then(tmp => {
+      tmp.teachers.push(item); 
+      return this.http.put(url, JSON.stringify(tmp), {headers: this.headers}).toPromise().then(() => tmp).catch(this.handleError);
+  });
+    
   }
 }

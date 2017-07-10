@@ -90,9 +90,10 @@ export class HomePage implements OnInit {
   }
 
   onAddTeacher() {
+    this.selectedTeacher = null;
     this.selectedTeacher = new Teacher("","","");
     this.selectedNames = this.selectedSchool.sections;
-    this.webService.addTeacher(this.selectedSchool, this.selectedTeacher).then(tmp => {this.selectedSchool.teachers.push(tmp); this.selectedTeacher = this.selectedSchool.teachers[this.selectedSchool.teachers.length - 1];});
+    this.webService.addTeacher(this.selectedSchool.id, this.selectedTeacher).then(tmp => {console.log(tmp); this.selectedSchool = tmp; this.selectedTeacher = tmp.teachers[tmp.teachers.length - 1];});
   }
 
   onSchoolChange(selectedId : string) {
