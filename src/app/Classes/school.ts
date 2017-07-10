@@ -4,6 +4,7 @@ import { Bus } from "./bus";
 import { Service } from "./service";
 
 export class School {
+    id: string;
     name: string;
     telephone: string;
     email: string;
