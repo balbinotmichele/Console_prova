@@ -18,7 +18,9 @@ import { Bus } from "../../app/Classes/bus";
 export class HomePage implements OnInit {
   searchQuery : string = '';
 
-  school : School;
+  schools : School[];
+  selectedSchool : School;
+  selectedId : string;
   
   selectedFascia : Time;
   selectedService : Service;
@@ -32,14 +34,14 @@ export class HomePage implements OnInit {
 
   constructor(public navCtrl: NavController, private webService : WebService) {}
 
-  getKids() : void {
-    this.webService.getData().then(item => {console.log(item); this.school = item});
+  getSchools() : void {
+      this.webService.getData().then(item => { this.schools = item });
   }
 
   searchItems(ev: any) {
     let val = ev.target.value;
     if (val && val.trim() != '') {
-      this.school.kids = this.school.kids.filter((item) => {
+      this.selectedSchool.kids = this.selectedSchool.kids.filter((item) => {
         var tmp = item.name + " " + item.surname;
         return (tmp.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
@@ -47,7 +49,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getKids()
+    this.getSchools()
   }
 
   onSelectFascia(fascia:Time, service:Service) {
@@ -75,7 +77,7 @@ export class HomePage implements OnInit {
       teacher.section = teacher.section || "";
       teacher.pin = teacher.pin || "";
     this.selectedTeacher = teacher;
-    this.selectedNames = this.school.sections;
+    this.selectedNames = this.selectedSchool.sections;
   }
 
   closeCard() {
@@ -89,6 +91,11 @@ export class HomePage implements OnInit {
 
   onAddTeacher() {
     this.selectedTeacher = new Teacher("","","");
-    this.selectedNames = this.school.sections;
+    this.selectedNames = this.selectedSchool.sections;
+    this.webService.addTeacher(this.selectedSchool, this.selectedTeacher).then(tmp => {this.selectedSchool.teachers.push(tmp); this.selectedTeacher = this.selectedSchool.teachers[this.selectedSchool.teachers.length - 1];});
+  }
+
+  onSchoolChange(selectedId : string) {
+    this.webService.getSchool(selectedId).then(item => { this.selectedSchool = item });
   }
 }

@@ -34,46 +34,60 @@
     <div *ngSwitchCase="'profilo'">
       <!--<ion-searchbar (ionInput)="searchItems($event)"></ion-searchbar>
           <ion-list inset >
-      <button ion-item *ngFor="let item of school.kids"> {{ item.name }} {{item.surname}}
+      <button ion-item *ngFor="let item of selectedSchool.kids"> {{ item.name }} {{item.surname}}
           <ion-icon name="arrow-forward" item-end></ion-icon>
           </button>
       </ion-list>-->
       <ion-grid inset>
         <ion-row>
           <ion-col col-12>
-            <ion-card>
-              <ion-card-header>
-                Nome Scuola
-              </ion-card-header>
-              <ion-card-content>
-                Nome
-              </ion-card-content>
-            </ion-card>
+            <ion-list>
+              <ion-item>
+                <ion-label floating>Sezione</ion-label>
+                <ion-select [(ngModel)]='selectedId' (ngModelChange)="onSchoolChange(selectedId)" id="selectSchool">
+                    <ion-option *ngFor="let item of schools" value="{{item.id}}" >{{item.id}} - {{item.name}}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col col-sm-6>
-            <ion-card>
-              <ion-card-header>
-                Indirizzo
-              </ion-card-header>
-              <ion-card-content>
-                <p>{{school.address}}</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-          <ion-col col-sm-6>
-            <ion-card>
-              <ion-card-header>
-                Contatti
-              </ion-card-header>
-              <ion-card-content>
-                <p>Telefono: <a href="tel: {{school.telephone}}">{{school.telephone}}</a></p>
-                <p>Email: <a href="{{school.email}}">{{school.email}}</a></p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
+        <div *ngIf="selectedSchool">
+          <ion-row>
+            <ion-col col-12>
+              <ion-card>
+                <ion-card-header>
+                  Nome Scuola
+                </ion-card-header>
+                <ion-card-content>
+                  Nome
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-sm-6>
+              <ion-card>
+                <ion-card-header>
+                  Indirizzo
+                </ion-card-header>
+                <ion-card-content>
+                  <p>{{selectedSchool.address}}</p>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col col-sm-6>
+              <ion-card>
+                <ion-card-header>
+                  Contatti
+                </ion-card-header>
+                <ion-card-content>
+                  <p>Telefono: <a href="tel: {{selectedSchool.telephone}}">{{selectedSchool.telephone}}</a></p>
+                  <p>Email: <a href="{{selectedSchool.email}}">{{selectedSchool.email}}</a></p>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>      
+        </div>
       </ion-grid>
       <!--<ion-fab bottom right>
         <button ion-fab color="primary"><ion-icon name="md-create"></ion-icon></button>
@@ -81,7 +95,7 @@
     </div>
 
     <div id="orari" *ngSwitchCase="'orari'">
-      <ion-grid inset *ngFor="let item of school.servizi; let i=index">
+      <ion-grid inset *ngFor="let item of selectedSchool.servizi; let i=index">
         <ion-row>
           <ion-col col-8>
             <ion-card>
@@ -125,7 +139,7 @@
           <ion-col col-4>
             <ion-card>
               <ion-list inset >
-                <button ion-item *ngFor="let item of school.sections; let i=index" (click)="onSelectSezione(school.sections, i)"> {{ item }}<ion-icon name="arrow-forward" item-end></ion-icon></button>
+                <button ion-item *ngFor="let item of selectedSchool.sections; let i=index" (click)="onSelectSezione(selectedSchool.sections, i)"> {{ item }}<ion-icon name="arrow-forward" item-end></ion-icon></button>
               </ion-list>
             </ion-card>
           </ion-col>
@@ -141,7 +155,7 @@
         <ion-list-header>
           Sezione 1
         </ion-list-header>
-        <ng-container *ngFor="let kid of school.kids">
+        <ng-container *ngFor="let kid of selectedSchool.kids">
 <button ion-item *ngIf="kid.section == item"> {{ item.name }} {{ item.surname }}
           <ion-icon name="arrow-forward" item-end></ion-icon>
           </button>
@@ -165,7 +179,7 @@
           <ion-col col-4>
             <ion-card>
               <ion-list inset >
-                <button ion-item *ngFor="let item of school.buses" (click)="onSelectBus(item)">{{ item.id }} ({{item.capolinea}})<ion-icon name="arrow-forward" item-end></ion-icon></button>
+                <button ion-item *ngFor="let item of selectedSchool.buses" (click)="onSelectBus(item)">{{ item.id }} ({{item.capolinea}})<ion-icon name="arrow-forward" item-end></ion-icon></button>
               </ion-list>
             </ion-card>
           </ion-col>
@@ -186,7 +200,7 @@
                 </ion-fab>
               <ion-card-content>
                 <ion-list inset >
-                  <button ion-item *ngFor="let item of school.teachers" (click)="onSelectTeacher(item)">
+                  <button ion-item *ngFor="let item of selectedSchool.teachers" (click)="onSelectTeacher(item)">
                   {{ item.name }} {{item.surname}}
                   <ion-icon name="arrow-forward" item-end></ion-icon>
                   </button>
@@ -206,7 +220,7 @@
         <ion-col col-4>
           <ion-card>
             <ion-list inset >
-              <button ion-item *ngFor="let item of school.assenze">
+              <button ion-item *ngFor="let item of selectedSchool.assenze">
                {{ item }}
                <ion-icon name="arrow-forward" item-end></ion-icon>
               </button>
