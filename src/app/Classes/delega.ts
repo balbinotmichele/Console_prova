@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { Person } from "./person";
 
 export class Delega extends Person {
