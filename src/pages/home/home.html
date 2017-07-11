@@ -30,8 +30,8 @@
       <ion-segment-button value="orari">
         Orari
       </ion-segment-button>
-      <ion-segment-button value="sezioni">
-        Sezioni
+      <ion-segment-button value="gruppi_sezioni">
+        Gruppi e sezioni
       </ion-segment-button>
       <ion-segment-button value="bus">
         Bus
@@ -133,7 +133,7 @@
       <!--<ion-fab bottom right>
           <button ion-fab color="primary"><ion-icon name="md-create"></ion-icon></button>
         </ion-fab>-->
-      <div *ngSwitchCase="'sezioni'">
+      <div *ngSwitchCase="'gruppi_sezioni'">
         <ion-grid inset>
           <ion-row>
             <ion-col col-4>
@@ -196,20 +196,22 @@
             <ion-col col-4>
               <ion-card>
                 <ion-fab>
-                    <button ion-fab mini (click)="onAddTeacher()"><ion-icon name="add"></ion-icon></button>
+                    <button ion-fab mini (click)="onAddTeacher()" [disabled]="newT[0]"><ion-icon name="add"></ion-icon></button>
                   </ion-fab>
                 <ion-card-content>
-                  <ion-list inset >
-                    <button ion-item *ngFor="let item of selectedSchool.teachers" (click)="onSelectTeacher(item)">
-                    {{ item.name }} {{item.surname}}
-                    <ion-icon name="arrow-forward" item-end></ion-icon>
-                    </button>
+                  <ion-list>
+                    <ion-item *ngFor="let item of selectedSchool.teachers">
+                      <h2>{{ item.name }} {{item.surname}}</h2>
+                      <p *ngFor="let sec of item.section">{{sec}}</p>
+                      <button name="view" ion-button clear item-end (click)="onSelectTeacher(item, true)"><ion-icon name="md-create"></ion-icon></button>
+                      <button name="view" ion-button clear item-end (click)="onSelectTeacher(item, false)"><ion-icon name="eye"></ion-icon></button>
+                    </ion-item>
                   </ion-list>
                 </ion-card-content>
               </ion-card>
             </ion-col>
             <ion-col col-8>
-                <insegnanti-edit [teacher]="selectedTeacher" [sections]="selectedNames" [schoolId]="selectedSchool.id" [newTeacher]="newT"></insegnanti-edit>
+                <insegnanti-edit [teacher]="selectedTeacher" [sections]="selectedNames" [school]="selectedSchool" [newTeacher]="newT" [edit]="edit"></insegnanti-edit>
             </ion-col>
           </ion-row>
         </ion-grid>
