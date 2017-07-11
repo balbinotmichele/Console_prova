@@ -1,45 +1,46 @@
 <ion-card *ngIf="teacher">
     <ion-card-content>
-        <ion-fab top right *ngIf="teacher.id !== ''">
-            <button ion-fab mini (click)="edit = !edit"><ion-icon name="md-create"></ion-icon></button>
+        <ion-fab top right *ngIf="!newTeacher[0]">
+            <button ion-fab mini (click)="onCancel()"><ion-icon name="close"></ion-icon></button>
         </ion-fab>
         <ion-list>
             <ion-item>
                 <ion-label floating>Id</ion-label>
-                <ion-input [(ngModel)]="teacher.id" required [disabled]='!edit && !newTeacher'></ion-input>
+                <ion-input [(ngModel)]="teacher.id" name="id" [disabled]='!edit && !newTeacher[0]'></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label floating>Nome</ion-label>
-                <ion-input [(ngModel)]="teacher.name" required [disabled]='!edit && !newTeacher'></ion-input>
+                <ion-input  [(ngModel)]="teacher.name" name="name" [disabled]='!edit && !newTeacher[0]'></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label floating>Cognome</ion-label>
-                <ion-input [(ngModel)]="teacher.surname" required [disabled]='!edit && !newTeacher'></ion-input>
+                <ion-input [(ngModel)]="teacher.surname" name="surname" [disabled]='!edit && !newTeacher[0]'></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label floating>Cellulare</ion-label>
-                <ion-input type="tel" [(ngModel)]="teacher.cellphone" [disabled]='!edit && !newTeacher'></ion-input>
+                <ion-input type="tel" [(ngModel)]="teacher.cellphone" name="cell" [disabled]='!edit && !newTeacher[0]'></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label floating>Telefono</ion-label>
-                <ion-input type="tel" [(ngModel)]="teacher.telephone" [disabled]='!edit && !newTeacher'></ion-input>
+                <ion-input type="tel" [(ngModel)]="teacher.telephone" name="tel" [disabled]='!edit && !newTeacher[0]'></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label floating>Email</ion-label>
-                <ion-input type="email" [(ngModel)]="teacher.email" [disabled]='!edit && !newTeacher'></ion-input>
+                <ion-input type="email" [(ngModel)]="teacher.email" name="email" [disabled]='!edit && !newTeacher[0]'></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label floating>Sezione</ion-label>
-                <ion-select [(ngModel)]="teacher.section" [disabled]='!edit && !newTeacher'>
+                <ion-select [(ngModel)]="teacher.section" multiple="true" name="sections" [disabled]='!edit && !newTeacher[0]'>
                     <ion-option *ngFor="let item of sections" value="{{item}}">{{item}}</ion-option>
                 </ion-select>
             </ion-item>
             <ion-item>
                 <ion-label floating>Pin</ion-label>
-                <ion-input [(ngModel)]="teacher.pin" [disabled]='!edit && !newTeacher'></ion-input>
+                <ion-input [(ngModel)]="teacher.pin" name="pin" [disabled]='!edit && !newTeacher[0]'></ion-input>
             </ion-item>
-            <ion-item *ngIf="newTeacher">
-                <button type='submit' ion-item (click)="onSaveTeacher()">SALVA</button>
+            <ion-item *ngIf="newTeacher[0]">
+                <button [disabled]='this.teacher.id === "" || this.teacher.name === "" || this.teacher.surname === ""' ion-item (click)="onSaveTeacher()">SALVA</button>
+                <button ion-item (click)="onCancel()">ANNULLA</button>
             </ion-item> 
         </ion-list>
     </ion-card-content>

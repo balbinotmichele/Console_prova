@@ -16,14 +16,27 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class InsegnanteEditComponent {
   @Input() teacher: Teacher;
   @Input() sections : string[];
-  @Input() schoolId : string;
-  school : School;
-  edit:boolean = false;
-  @Input() newTeacher : boolean;
+  @Input() school : School;
+  @Input() edit:boolean;
+  @Input() newTeacher : boolean[];
 
   constructor(private webService : WebService) {}
 
   onSaveTeacher() {
-    this.webService.addTeacher(this.schoolId, this.teacher).then(tmp => {console.log(tmp); this.school = tmp; this.teacher = tmp.teachers[tmp.teachers.length - 1];});
+    if(this.teacher.id !== "" && this.teacher.name !== "" && this.teacher.surname !== "") {
+      this.webService.addTeacher(this.school.id, this.teacher)
+      .then(tmp => {
+        console.log(tmp); 
+        this.teacher = tmp.teachers[tmp.teachers.length - 1]; 
+        this.school.teachers.push(this.teacher); 
+        this.newTeacher[0] = false; 
+        this.edit = false
+      });
+    }
+  }
+
+  onCancel() {
+    console.log(this.newTeacher);
+    this.teacher = undefined;
   }
 }
