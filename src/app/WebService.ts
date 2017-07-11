@@ -44,9 +44,9 @@ export class WebService {
   addTeacher(schoolId: string, item : Teacher) : Promise<School> {
     var sch;
     const url = `${this.schoolUrl}/${schoolId}`
-    this.getSchool(schoolId).then(tmp => {this.school = tmp; this.school.teachers.push(item); });
-    console.log(this.school);
-    console.log(JSON.stringify(this.school));
-    return this.http.put(url, JSON.stringify(this.school), {headers: this.headers}).toPromise().then(() => this.school).catch(this.handleError);
+    return this.getSchool(schoolId).then(tmp => {
+      tmp.teachers.push(item); 
+      return this.http.put(url, JSON.stringify(tmp), {headers: this.headers}).toPromise().then(() => tmp).catch(this.handleError);
+    });
   }
 }
