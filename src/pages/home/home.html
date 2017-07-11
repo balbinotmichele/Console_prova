@@ -195,7 +195,7 @@
           <ion-row>
             <ion-col col-4>
               <ion-card>
-                <ion-fab style="position: fixed">
+                <ion-fab>
                     <button ion-fab mini (click)="onAddTeacher()"><ion-icon name="add"></ion-icon></button>
                   </ion-fab>
                 <ion-card-content>
@@ -209,7 +209,7 @@
               </ion-card>
             </ion-col>
             <ion-col col-8>
-                <insegnanti-edit [teacher]="selectedTeacher" [sections]="selectedNames"></insegnanti-edit>
+                <insegnanti-edit [teacher]="selectedTeacher" [sections]="selectedNames" [schoolId]="selectedSchool.id" [newTeacher]="newT"></insegnanti-edit>
             </ion-col>
           </ion-row>
         </ion-grid>

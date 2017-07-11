@@ -62,9 +62,9 @@ export class InMemoryDataService implements InMemoryDbService {
             new Kid("BNCLGI","Luigi", "Bianchi"),
           ],
           teachers : [
-            new Teacher("FSTANT", "Antonello", "Fausti"),
-            new Teacher("FSTLGI","Luigi", "Festi"),
-            new Teacher("FRRMNL","Emanuela", "Ferri"),
+            new Teacher("FSTANT", "Antonello", "Fausti", "", "", "", "", ""),
+            new Teacher("FSTLGI","Luigi", "Festi", "", "", "", "", ""),
+            new Teacher("FRRMNL","Emanuela", "Ferri", "", "", "", "", ""),
           ],
           buses : [
             new Bus("bus1", "Povo"),

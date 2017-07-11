@@ -31,6 +31,7 @@ export class HomePage implements OnInit {
   selectedBus: Bus;
 
   selectedTeacher: Teacher;
+  newT:boolean = false;
 
   constructor(public navCtrl: NavController, private webService : WebService) {}
 
@@ -68,6 +69,7 @@ export class HomePage implements OnInit {
   }
 
   onSelectTeacher(teacher: Teacher) {
+    console.log(this.selectedSchool)
       teacher.id = teacher.id || "";
       teacher.name = teacher.name || "";
       teacher.surname = teacher.surname || "";
@@ -90,10 +92,8 @@ export class HomePage implements OnInit {
   }
 
   onAddTeacher() {
-    this.selectedTeacher = null;
+    this.newT = true;
     this.selectedTeacher = new Teacher("","","");
-    this.selectedNames = this.selectedSchool.sections;
-    this.webService.addTeacher(this.selectedSchool.id, this.selectedTeacher).then(tmp => {console.log(tmp); this.selectedSchool = tmp; this.selectedTeacher = tmp.teachers[tmp.teachers.length - 1];});
   }
 
   onSchoolChange(selectedId : string) {
