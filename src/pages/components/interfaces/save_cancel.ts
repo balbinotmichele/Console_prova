@@ -1,0 +1,4 @@
+interface SaveCancel {
+    onSave();
+    onCancel();
+}

@@ -9,6 +9,10 @@
                 <ion-label floating>Capolinea</ion-label>
                 <ion-input [(ngModel)]="bus.capolinea"></ion-input>
             </ion-item>
+            <ion-item *ngIf="newBus[0]">
+                <button [disabled]='bus.id === "" || bus.capolinea === ""' ion-item (click)="onSave()">SALVA</button>
+                <button ion-item (click)="onCancel()">ANNULLA</button>
+            </ion-item> 
         </ion-list>
     </ion-card-content>
 </ion-card>

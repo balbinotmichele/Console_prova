@@ -1,4 +1,4 @@
-<ion-card *ngIf="teacher">
+<ion-card *ngIf="teacher" id="teacherCard">
     <ion-card-content>
         <ion-fab top right *ngIf="!newTeacher[0]">
             <button ion-fab mini (click)="onCancel()"><ion-icon name="close"></ion-icon></button>
@@ -39,7 +39,7 @@
                 <ion-input [(ngModel)]="teacher.pin" name="pin" [disabled]='!edit && !newTeacher[0]'></ion-input>
             </ion-item>
             <ion-item *ngIf="newTeacher[0]">
-                <button [disabled]='this.teacher.id === "" || this.teacher.name === "" || this.teacher.surname === ""' ion-item (click)="onSaveTeacher()">SALVA</button>
+                <button [disabled]='this.teacher.id === "" || this.teacher.name === "" || this.teacher.surname === ""' ion-item (click)="onSave()">SALVA</button>
                 <button ion-item (click)="onCancel()">ANNULLA</button>
             </ion-item> 
         </ion-list>

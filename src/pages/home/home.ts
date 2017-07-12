@@ -16,6 +16,8 @@ import { Bus } from "../../app/Classes/bus";
 })
 
 export class HomePage implements OnInit {
+  settings: string = "profilo"
+
   searchQuery : string = '';
 
   schools : School[];
@@ -29,6 +31,7 @@ export class HomePage implements OnInit {
   selectedSectionIndex : number;
 
   selectedBus: Bus;
+  newB: boolean[] = [false];
 
   selectedTeacher: Teacher;
   newT:boolean[] = [false];
@@ -70,7 +73,6 @@ export class HomePage implements OnInit {
   }
 
   onSelectTeacher(teacher: Teacher, edit) {
-    console.log(this.selectedSchool)
       teacher.id = teacher.id || "";
       teacher.name = teacher.name || "";
       teacher.surname = teacher.surname || "";
@@ -96,6 +98,11 @@ export class HomePage implements OnInit {
   onAddTeacher() {
     this.newT[0] = true;
     this.selectedTeacher = new Teacher("","","", "", "", "", [], "");
+  }
+
+  onAddBus() {
+    this.newB[0] = true;
+    this.selectedBus = new Bus("", "");
   }
 
   onSchoolChange(selectedId : string) {

@@ -13,7 +13,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   `]
 })
 
-export class InsegnanteEditComponent {
+export class InsegnanteEditComponent implements SaveCancel {
   @Input() teacher: Teacher;
   @Input() sections : string[];
   @Input() school : School;
@@ -22,11 +22,10 @@ export class InsegnanteEditComponent {
 
   constructor(private webService : WebService) {}
 
-  onSaveTeacher() {
+  onSave() {
     if(this.teacher.id !== "" && this.teacher.name !== "" && this.teacher.surname !== "") {
-      this.webService.addTeacher(this.school.id, this.teacher)
+      this.webService.add(this.school.id, this.teacher)
       .then(tmp => {
-        console.log(tmp); 
         this.teacher = tmp.teachers[tmp.teachers.length - 1]; 
         this.school.teachers.push(this.teacher); 
         this.newTeacher[0] = false; 
@@ -35,8 +34,7 @@ export class InsegnanteEditComponent {
     }
   }
 
-  onCancel() {
-    console.log(this.newTeacher);
+  onCancel() { //da finire
     this.teacher = undefined;
   }
 }
